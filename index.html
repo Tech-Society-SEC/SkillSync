@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Voice Skill Profile Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🎤 Voice Skill Profile Generator</h1>
+    
+    <button id="recordBtn">🎙️ Start Recording</button>
+    <p id="status">Press start to record your skill summary</p>
+    
+    <textarea id="transcript" placeholder="Transcribed text will appear here..." readonly></textarea>
+
+    <div id="profileCard" class="hidden">
+      <h2>🧑‍💼 Skill Profile</h2>
+      <p><strong>Name:</strong> <span id="name">Thenmozhi</span></p>
+      <p><strong>Extracted Skills:</strong> <span id="skills">---</span></p>
+    </div>
+
+    <button id="generatePdf" class="hidden">📄 Download PDF</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
