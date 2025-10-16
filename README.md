@@ -91,7 +91,7 @@ python ml_pipeline.py
 ```
 ml_module/
 ├── Core Pipeline
-│   ├── ml_pipeline.py                    # Main pipeline orchestrator
+│   ├── ml_pipeline.py                    
 │   ├── audio_processor.py                # Whisper speech-to-text
 │   ├── skill_extraction_multilingual.py  # Multilingual skill extraction (PRIMARY)
 │   ├── skill_extraction.py               # Legacy skill extraction
@@ -110,21 +110,21 @@ ml_module/
 │   ├── generate_test_audio.py            # Generate test audio files
 │   ├── test_voice_input.py               # Interactive voice testing
 │   ├── test_real_data.py                 # Real data validation
-│   └── quick_test.py                     # Quick component testing
+│   └── quick_test.py                    
 │
 ├── Data & Models
-│   ├── datasets/                         # Generated datasets
-│   │   ├── skill_taxonomy.csv            # 254 standard skills
-│   │   ├── job_listings.csv              # 10,000 job postings
-│   │   ├── worker_utterances.csv         # Training data
-│   │   └── learning_resources.csv        # 5,000 courses
-│   ├── models/                           # Saved models
-│   ├── test_audio/                       # Test audio files
-│   └── outputs/                          # Test results
+│   ├── datasets/                      
+│   │   ├── skill_taxonomy.csv            
+│   │   ├── job_listings.csv             
+│   │   ├── worker_utterances.csv         
+│   │   └── learning_resources.csv       
+│   ├── models/                           
+│   ├── test_audio/                       
+│   └── outputs/                         
 │
 └── Configuration
-    ├── requirements.txt                  # Python dependencies
-    └── README.md                         # This file
+    ├── requirements.txt                  
+    └── README.md                         
 ```
 
 ## 🔧 Usage Examples
@@ -199,12 +199,10 @@ curl -X POST "http://localhost:8000/api/voice/process" \
 
 ## 🧠 ML Models Used
 
-| Component | Model | Purpose | Training Required |
-|-----------|-------|---------|-------------------|
-| Speech-to-Text | Whisper (OpenAI) | Convert voice to text | ❌ No (pre-trained) |
-| Skill Extraction | spaCy + XLM-RoBERTa | Extract skills from text | ⚙️ Optional fine-tuning |
-| Skill Normalization | Sentence-BERT (multilingual) | Match to standard skills | ❌ No (pre-trained) |
-| Job Recommendation | TF-IDF + Cosine Similarity | Recommend jobs | ⚙️ Light training |
+ Speech-to-Text       -- Whisper (OpenAI) - Convert voice to text 
+ Skill Extraction     -- spaCy + XLM-RoBERTa - Extract skills from text 
+ Skill Normalization  -- Sentence-BERT (multilingual) -Match to standard skills 
+ Job Recommendation   -- TF-IDF + Cosine Similarity - Recommend jobs
 
 ## 📊 Dataset Statistics
 
@@ -365,14 +363,6 @@ CMD ["python", "master_api.py"]
 | GET | `/docs` | Interactive API documentation |
 | GET | `/health` | Health check |
 
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new features
-4. Submit a pull request
-
 ## 📄 License
 
 MIT License - See LICENSE file for details
@@ -388,4 +378,4 @@ SkillSync ML Team
 - Run `python quick_test.py` for diagnostics
 - Review test scripts in `Testing & Demo` folder
 
-**🎉 Ready to use! Start with:** `python download_models.py` → `python generate_datasets.py` → `python test_voice_accuracy.py`
+**🎉 Ready to use!
