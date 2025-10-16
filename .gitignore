@@ -1,0 +1,80 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# ML Models & Cached Models
+models/*.pkl
+models/*.bin
+models/*.pth
+*.h5
+*.onnx
+cache/
+
+# Generated Datasets (too large for git)
+datasets/*.csv
+datasets/*.json
+
+# Test Audio Files (generated, not source)
+test_audio/*.mp3
+test_audio/*.wav
+test_audio/*.m4a
+
+# Output Results
+outputs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Audio temporary files
+*.wav.tmp
+*.mp3.tmp
+
+*cleanup_for_github.py
+*PROJECT_READY_FOR_GITHUB.md
+*GITHUB_SUMMARY.md
