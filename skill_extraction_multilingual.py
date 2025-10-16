@@ -67,8 +67,8 @@ class MultilingualSkillExtractor:
             
             # CARPENTRY
             'Wood Cutting': [
-                'wood', 'लकड़ी', 'மரம்', 'చెక్క', 'ಮರ',
-                'wood cutting', 'लकड़ी काटना', 'மரம் வெட்டுதல்'
+                'wood cutting', 'लकड़ी काटना', 'மரம் வெட்டுதல்',
+                'wood work', 'wood', 'लकड़ी', 'மரம்', 'చెక్క', 'ಮರ'
             ],
             'Furniture Making': [
                 'furniture', 'फर्नीचर', 'பர்னிச்சர்', 'ఫర్నిచర్', 'ಪೀಠೋಪಕರಣ',
@@ -93,7 +93,9 @@ class MultilingualSkillExtractor:
             # DRIVING
             'Vehicle Driving': [
                 'drive', 'driving', 'driver', 'ड्राइविंग', 'ड्राइवर', 'ஓட்டுதல்', 'డ్రైవింగ్', 'ಚಾಲನೆ',
-                'car driving', 'truck driving'
+                'car driving', 'truck driving', 'vehicle driving',
+                'drive car', 'drive truck', 'drive vehicle', 'drive all vehicle',
+                'i work as driver', 'work as driver'
             ],
             
             # TAILORING
@@ -114,34 +116,41 @@ class MultilingualSkillExtractor:
             
             # MECHANICS
             'General Repair': [
-                'repair', 'mechanic', 'मरम्मत', 'मैकेनिक', 'பழுது', 'రిపేర్', 'ದುರಸ್ತಿ',
-                'fix', 'fixing'
+                'general repair', 'मरम्मत', 'பழுது', 'రిపేర్', 'ದುರಸ್ತಿ',
+                'maintenance work', 'general maintenance'
             ],
             'Two Wheeler Repair': [
                 'bike', 'motorcycle', 'scooter', 'बाइक', 'स्कूटर', 'பைக்', 'బైక్', 'ಬೈಕ್',
                 'two wheeler'
             ],
             'Four Wheeler Repair': [
-                'car', 'vehicle', 'कार', 'गाड़ी', 'கார்', 'కార్', 'ಕಾರು',
-                'four wheeler'
+                'car repair', 'vehicle repair', 'कार मरम्मत', 'गाड़ी मरम्मत',
+                'four wheeler repair', 'car mechanic', 'vehicle mechanic',
+                'auto mechanic', 'automobile repair'
             ],
             
             # MOBILE REPAIR
             'Mobile Repair': [
-                'mobile', 'phone', 'मोबाइल', 'फोन', 'மொபைல்', 'ఫోన్', 'ಮೊಬೈಲ್',
-                'mobile repair', 'phone repair'
+                'mobile repair', 'phone repair', 'मोबाइल रिपेयर', 'फोन रिपेयर',
+                'mobile mechanic', 'phone mechanic', 'mobile fixing', 'phone fixing',
+                'cell phone repair', 'smartphone repair',
+                'iphone repair', 'samsung repair', 'android repair',
+                'all icon', 'all brands', 'सभी ब्रांड',
+                'mobile', 'phone', 'मोबाइल', 'फोन', 'மொபைல்', 'ఫోన్', 'ಮೊಬೈಲ್'
             ],
             'Screen Replacement': [
-                'screen', 'display', 'स्क्रीन', 'डिस्प्ले', 'திரை', 'స్క్రీన్', 'ಪರದೆ',
-                'screen replacement', 'screen repair'
+                'screen replacement', 'screen repair', 'screen change',
+                'display replacement', 'display repair',
+                'screen', 'display', 'स्क्रीन', 'डिस्प्ले', 'திரை', 'స్క్రీన్', 'ಪರದೆ'
             ],
             'Battery Replacement': [
-                'battery', 'बैटरी', 'பேட்டரி', 'బ్యాటరీ', 'ಬ್ಯಾಟರಿ',
-                'battery change', 'battery replacement'
+                'battery replacement', 'battery change', 'battery repair',
+                'battery', 'बैटरी', 'பேட்டரி', 'బ్యాటరీ', 'ಬ್ಯಾಟರಿ'
             ],
             'Software Troubleshooting': [
-                'software', 'सॉफ्टवेयर', 'மென்பொருள்', 'సాఫ్ట్‌వేర్', 'ಸಾಫ್ಟ್‌ವೇರ್',
-                'software issue', 'software problem'
+                'software issue', 'software problem', 'software troubleshooting',
+                'software repair', 'software fix', 'software issues',
+                'software', 'सॉफ्टवेयर', 'மென்பொருள்', 'సాఫ్ట్‌వేర్', 'ಸಾಫ್ಟ್‌ವೇರ್'
             ],
             
             # BEAUTY/SALON
@@ -195,14 +204,25 @@ class MultilingualSkillExtractor:
         }
     
     def extract_skills(self, text: str) -> List[Dict]:
-        """Extract skills with aggressive multilingual matching"""
+        """Extract skills with aggressive multilingual matching + priority"""
         text_lower = text.lower()
         extracted = []
         seen_skills = set()
         
+        # Priority: Match longer/more specific keywords first
+        # Sort skills by maximum keyword length (descending)
+        sorted_skills = sorted(
+            self.multilingual_keywords.items(),
+            key=lambda x: max(len(kw) for kw in x[1]),
+            reverse=True
+        )
+        
         # Match against all multilingual keywords
-        for skill_name, keywords in self.multilingual_keywords.items():
-            for keyword in keywords:
+        for skill_name, keywords in sorted_skills:
+            # Sort keywords by length (longer = more specific)
+            sorted_keywords = sorted(keywords, key=len, reverse=True)
+            
+            for keyword in sorted_keywords:
                 if keyword.lower() in text_lower:
                     if skill_name not in seen_skills:
                         category = self._get_category(skill_name)
@@ -210,12 +230,39 @@ class MultilingualSkillExtractor:
                             'skill': skill_name,
                             'category': category,
                             'confidence': 0.95,
-                            'method': 'multilingual_keyword'
+                            'method': 'multilingual_keyword',
+                            'matched_keyword': keyword
                         })
                         seen_skills.add(skill_name)
                         break  # Found this skill, move to next
         
+        # Remove overly general skills if more specific ones exist
+        extracted = self._filter_general_skills(extracted)
+        
         return extracted
+    
+    def _filter_general_skills(self, skills: List[Dict]) -> List[Dict]:
+        """Remove general skills when specific ones exist"""
+        skill_names = [s['skill'] for s in skills]
+        
+        # Remove "General Repair" if any specific repair skill exists
+        if 'General Repair' in skill_names:
+            specific_repairs = ['Mobile Repair', 'Two Wheeler Repair', 'Four Wheeler Repair', 
+                              'Electrical Wiring', 'Pipe Fitting', 'Tap Repair']
+            if any(s in skill_names for s in specific_repairs):
+                skills = [s for s in skills if s['skill'] != 'General Repair']
+        
+        # Remove "Four Wheeler Repair" if "Vehicle Driving" exists
+        if 'Vehicle Driving' in skill_names and 'Four Wheeler Repair' in skill_names:
+            # Check which one matched more specifically
+            driving_skill = next(s for s in skills if s['skill'] == 'Vehicle Driving')
+            repair_skill = next(s for s in skills if s['skill'] == 'Four Wheeler Repair')
+            
+            # If driving keywords are present, keep driving
+            if 'drive' in driving_skill.get('matched_keyword', '').lower():
+                skills = [s for s in skills if s['skill'] != 'Four Wheeler Repair']
+        
+        return skills
     
     def _get_category(self, skill_name: str) -> str:
         """Get category for a skill"""
