@@ -67,7 +67,7 @@ python test_voice_accuracy.py
 
 **Expected Output:**
 - 13 audio files (English + Hindi)
-- 85-95% overall accuracy
+- 85-90% overall accuracy
 - Language-wise performance breakdown
 
 ### 4. Test Individual Components
