@@ -1,4 +1,4 @@
-# 🎙️ SkillSync ML Module - Voice-First System
+# 🎙️ SkillSync - Voice-First System
 
 **AI-powered skill extraction and job matching for informal sector workers**
 
@@ -7,7 +7,7 @@
 
 ## 📋 Overview
 
-A complete **Voice-First ML pipeline** that processes audio/text from blue-collar workers and extracts skills, job titles, experience, and provides job recommendations.
+A complete Voice-First ML pipeline that processes audio/text from blue-collar workers and extracts skills, job titles, experience, and provides job recommendations.
 
 ### **Key Features:**
 - 🎤 **Voice-First Processing** - Audio → Text → Skills → Jobs
@@ -199,10 +199,14 @@ curl -X POST "http://localhost:8000/api/voice/process" \
 
 ## 🧠 ML Models Used
 
- Speech-to-Text       -- Whisper (OpenAI) - Convert voice to text 
+ Speech-to-Text       -- Whisper (OpenAI) - Convert voice to text
+ 
  Skill Extraction     -- spaCy + XLM-RoBERTa - Extract skills from text 
+ 
  Skill Normalization  -- Sentence-BERT (multilingual) -Match to standard skills 
+ 
  Job Recommendation   -- TF-IDF + Cosine Similarity - Recommend jobs
+ 
 
 ## 📊 Dataset Statistics
 
@@ -251,7 +255,7 @@ result = pipeline.process_audio_input("audio.mp3")
 ## 📈 Performance Metrics
 
 ### Voice-to-Profile Pipeline:
-- **Overall Accuracy:** 85-95%
+- **Overall Accuracy:** 80-90%
 - **Transcription (Whisper):** 90-95%
 - **Skill Extraction:** 80-90% (multilingual)
 - **Job Matching:** 80-85%
@@ -308,51 +312,6 @@ recommender.load_model("models/job_recommender.pkl")
 - **Aggressive keyword matching** for high recall (80-95%)
 - **Pattern-based extraction** for skill lists and phrases
 
-## 🐛 Troubleshooting
-
-### "Whisper not available"
-```bash
-pip install openai-whisper ffmpeg-python pydub soundfile
-```
-Also install FFmpeg: `choco install ffmpeg` (Windows)
-
-### "Skill taxonomy not found"
-```bash
-python generate_datasets.py
-```
-
-### "Low accuracy on Hindi/regional languages"
-- Ensure `skill_extraction_multilingual.py` is being used
-- Check that audio quality is good
-- Try Hinglish instead of pure Hindi
-
-### "CUDA out of memory"
-Models automatically fall back to CPU. Or use smaller Whisper model:
-```python
-pipeline = SkillSyncPipeline(use_whisper=True)
-# Internally uses base model
-```
-
-## 🚢 Production Deployment
-
-### System Requirements:
-- **RAM:** 4GB minimum (8GB recommended)
-- **Storage:** 500MB for models
-- **CPU:** Any modern processor
-- **GPU:** Optional (10x faster transcription)
-
-### Docker Deployment:
-```dockerfile
-FROM python:3.11
-RUN apt-get update && apt-get install -y ffmpeg
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . /app
-WORKDIR /app
-EXPOSE 8000
-CMD ["python", "master_api.py"]
-```
-
 ## 📝 API Endpoints
 
 | Method | Endpoint | Description |
@@ -363,19 +322,3 @@ CMD ["python", "master_api.py"]
 | GET | `/docs` | Interactive API documentation |
 | GET | `/health` | Health check |
 
-## 📄 License
-
-MIT License - See LICENSE file for details
-
-## 👥 Authors
-
-SkillSync ML Team
-
----
-
-**📧 Need Help?**
-- Check `/docs` endpoint when API is running
-- Run `python quick_test.py` for diagnostics
-- Review test scripts in `Testing & Demo` folder
-
-**🎉 Ready to use!
