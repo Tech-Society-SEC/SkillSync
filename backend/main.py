@@ -2,6 +2,10 @@ import sqlite3
 from fastapi import FastAPI
 
 app = FastAPI()
+@app.get("/")
+def root():
+    return {"message": "SkillSync Backend is running!"}
+
 
 @app.get("/jobs")
 def get_jobs():
@@ -11,3 +15,8 @@ def get_jobs():
     jobs = c.fetchall()
     conn.close()
     return {"jobs": jobs}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+
