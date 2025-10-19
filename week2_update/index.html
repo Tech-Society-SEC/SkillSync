@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillSync | Voice Skill Profile Generator</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="app">
+    <section class="card">
+      <header class="card-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/3094/3094837.png" alt="Microphone Illustration" class="hero-image" />
+        <h1 class="app-title">Voice Skill Profile Generator</h1>
+        <p class="app-subtitle">Analyze your voice and extract your skills intelligently</p>
+      </header>
+
+      <div class="controls">
+        <button id="recordBtn" class="btn primary">
+          <span class="material-icons-outlined">mic</span> Start Recording
+        </button>
+        <p id="status" class="status-text">Click the button to record your skill summary</p>
+      </div>
+
+      <textarea id="transcript" placeholder="Transcribed text will appear here..." readonly></textarea>
+
+      <div id="profileCard" class="profile hidden">
+        <h2><span class="material-icons-outlined">person</span> Skill Summary</h2>
+        <ul class="profile-details">
+          <li><strong>Name:</strong> <span id="name">Thenmozhi</span></li>
+          <li><strong>Extracted Skills:</strong> <span id="skills">---</span></li>
+          <li><strong>Recommended Role:</strong> <span id="jobRole">---</span></li>
+        </ul>
+      </div>
+
+      <button id="generatePdf" class="btn secondary hidden">
+        <span class="material-icons-outlined">picture_as_pdf</span> Download Report
+      </button>
+    </section>
+
+    <footer class="footer">
+      <p>© 2025 SkillSync — Designed by Person C</p>
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
