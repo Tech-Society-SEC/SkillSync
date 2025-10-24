@@ -43,49 +43,11 @@ Downloads:
 - Sentence-BERT (all-MiniLM-L6-v2) - ~80MB  
 - Whisper (base) - ~140MB [Optional]
 
-### 3. Generate Datasets
-
-```bash
-python generate_datasets.py
-```
-
-Creates 50,000+ entries:
-- 254 standardized skills
-- 10,000 job postings
-- 15,000 worker utterances
-- 5,000 learning resources
-
-### 4. Test Voice System (Multilingual)
-
-```bash
-# Generate test audio files
-python generate_test_audio.py
-
-# Run accuracy tests
-python test_voice_accuracy.py
-```
-
 **Expected Output:**
 - 13 audio files (English + Hindi)
 - 85-90% overall accuracy
 - Language-wise performance breakdown
-
-### 4. Test Individual Components
-
-```bash
-# Test skill extraction
-python skill_extraction.py
-
-# Test skill normalization
-python skill_normalization.py
-
-# Test job recommendations
-python job_recommender.py
-
-# Test complete pipeline
-python ml_pipeline.py
-```
-
+- 
 ## 📁 Project Structure
 
 ```
@@ -270,32 +232,6 @@ result = pipeline.process_audio_input("audio.mp3")
 - **30s audio:** ~4.5s total
 - **1min audio:** ~8.5s total
 
-## 🛠️ Advanced Options
-
-### Fine-tune Skill Extraction Model
-
-```python
-from skill_extraction import train_custom_ner_model
-
-# Prepare annotated data with BIO tags
-train_custom_ner_model(
-    utterances_path="datasets/worker_utterances.csv",
-    output_dir="models/skill_ner"
-)
-```
-
-### Save/Load Models
-
-```python
-# Save trained models
-normalizer.save_embeddings("models/skill_embeddings.pkl")
-recommender.save_model("models/job_recommender.pkl")
-
-# Load pre-trained models
-normalizer.load_embeddings("models/skill_embeddings.pkl")
-recommender.load_model("models/job_recommender.pkl")
-```
-
 ## 🌍 Multilingual Support
 
 ### Supported Languages:
@@ -311,14 +247,3 @@ recommender.load_model("models/job_recommender.pkl")
 - **Multilingual Skill Extractor** uses 300+ keywords across languages
 - **Aggressive keyword matching** for high recall (80-95%)
 - **Pattern-based extraction** for skill lists and phrases
-
-## 📝 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/voice/process` | **Primary:** Process audio file |
-| POST | `/api/extract-skills` | Extract skills from text |
-| POST | `/api/recommend-jobs` | Get job recommendations |
-| GET | `/docs` | Interactive API documentation |
-| GET | `/health` | Health check |
-
