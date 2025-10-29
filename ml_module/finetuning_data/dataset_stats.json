@@ -1,0 +1,14 @@
+{
+  "total_samples": 15000,
+  "train_samples": 13500,
+  "val_samples": 1500,
+  "unique_skills": 249,
+  "avg_tokens_per_sample": 9.0496,
+  "avg_skills_per_sample": 1.7332,
+  "language_distribution": {
+    "Tamil": 3748,
+    "Mixed": 3721,
+    "Hindi": 3792,
+    "English": 3739
+  }
+}
